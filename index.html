@@ -116,12 +116,6 @@
     });
 
     //resultHTML += `</div><h3>您選擇了 <strong>${yesCount}</strong> 題「是」。</h3>`;
-    resultHTML += `
-    <div style="text-align:center; margin-top:30px;">
-      <button class="btn restart" onclick="restartQuiz()">返回最一開始</button>
-    </div>
-    `;
-
 
     if (greenSteps > blueSteps) {
       resultHTML += "<p>→ 您可能較適合 <strong style='color:#f66'>腹膜透析</strong>（紅色太空梭勝出）。</p>";
@@ -130,6 +124,12 @@
     } else {
       resultHTML += "<p>→ 雙方平手，建議與醫師討論最適合您的方式。</p>";
     }
+
+    resultHTML += `
+    <div style="text-align:center; margin-top:30px;">
+      <button class="btn restart" onclick="restartQuiz()">返回最一開始</button>
+    </div>
+    `;
 
     result.innerHTML = resultHTML;
   }
