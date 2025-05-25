@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>透析模式競賽問卷</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- 頁面主標題 -->
+<h1>太空透析競賽問卷</h1>
+
+<!-- 飛船競賽區塊（腹膜 vs 血液透析） -->
+<div id="track">
+  <div class="lane">
+    <div class="label">腹膜透析</div>
+    <div class="space" id="greenLane">
+      <div class="progress" id="greenProgress"></div>
+      <img src="Images/red.png" id="greenShip" class="ship">
+    </div>
+  </div>
+  <div class="lane">
+    <div class="label">血液透析</div>
+    <div class="space" id="blueLane">
+      <div class="progress" id="blueProgress"></div>
+      <img src="Images/blue.png" id="blueShip" class="ship">
+    </div>
+  </div>
+</div>
+
+<!-- 題目與按鈕 -->
+<div id="questionBox">
+  <div id="questionText">載入中...</div>
+  <button class="btn yes" onclick="answer('是')">是</button>
+  <button class="btn no" onclick="answer('否')">否</button>
+</div>
+
+<!-- 顯示結果區 -->
+<div id="result"></div>
+
+<script>
+  // 問卷題目清單
+  const questions = [
+    "我很害怕打針，且不喜歡頻繁的針刺操作。",
+    "我希望洗腎時間較具彈性，不受醫院排班限制。",
+    "我能接受在家中進行治療，例如自行進行透析換液。",
+    "我家中有可以安靜、安全換藥水的空間。",
+    "我有能力或信心學會進行腹膜透析的換液技術。",
+    "我的家人願意或能夠協助我執行腹膜透析。",
+    "我能接受腹部小手術植入腹膜透析導管。",
+    "我不太擔心自己在家裡操作會出錯，有信心做好衛生與感染控制。",
+    "我不希望每週多次前往醫療院所接受洗腎。",
+    "我不想讓醫護人員為我執行洗腎操作，傾向自己掌控治療過程。",
+    "我無法接受手臂動靜脈瘻管手術。"
+  ];
+
+  // 狀態變數
+  let currentQ = 0; // 目前題號索引
+  let greenSteps = 0; // 紅色腹膜透析得分
+  let blueSteps = 0;  // 藍色血液透析得分
+  const answers = []; // 儲存使用者回答
+
+  // 抓取 DOM 元素
+  const questionText = document.getElementById("questionText");
+  const greenShip = document.getElementById("greenShip");
+  const blueShip = document.getElementById("blueShip");
+  const greenProgress = document.getElementById("greenProgress");
+  const blueProgress = document.getElementById("blueProgress");
+  const result = document.getElementById("result");
+
+  // 顯示目前題目
+  function updateQuestion() {
+    if (currentQ < questions.length) {
+      questionText.innerText = `第 ${currentQ + 1} 題：${questions[currentQ]}`;
+    } else {
+      showResult(); // 顯示結果
+    }
+  }
+
+  // 回答處理邏輯
+  function answer(choice) {
+    if (currentQ >= questions.length) return;
+
+    answers.push({ q: questions[currentQ], a: choice });
+
+    if (choice === "是") {
+      greenSteps++;
+      moveShip(greenShip, greenProgress, greenSteps);
+    } else {
+      blueSteps++;
+      moveShip(blueShip, blueProgress, blueSteps);
+    }
+
+    currentQ++;
+    updateQuestion();
+  }
+
+
+  // 飛船移動動畫與進度條更新
+  function moveShip(ship, trail, steps) {
+    const distance = steps * 2.7; // 每答一題，飛船前進 2.7vw
+    ship.style.transform = `translateX(${distance}vw)`;
+    trail.style.width = `${distance}vw`;
+  }
+
+  // 顯示填答結果
+  function showResult() {
+    document.getElementById("questionBox").style.display = "none";
+    let yesCount = answers.filter(x => x.a === "是").length;
+    let resultHTML = `<h2>填答結果</h2><div style='text-align:left;'>`;
+
+    answers.forEach((item, i) => {
+      const className = item.a === "是" ? "answer-yes" : "answer-no";
+      //resultHTML += `<div class='question-line ${className}'><strong>第 ${i + 1} 題：</strong>${item.q}<br/>回答：<strong>${item.a}</strong></div>`;
+    });
+
+    //resultHTML += `</div><h3>您選擇了 <strong>${yesCount}</strong> 題「是」。</h3>`;
+
+    if (greenSteps > blueSteps) {
+      resultHTML += "<p>→ 您可能較適合 <strong style='color:#f66'>腹膜透析</strong>（紅色太空梭勝出）。</p>";
+    } else if (blueSteps > greenSteps) {
+      resultHTML += "<p>→ 您可能較適合 <strong style='color:#6cf'>血液透析</strong>（藍色太空梭勝出）。</p>";
+    } else {
+      resultHTML += "<p>→ 雙方平手，建議與醫師討論最適合您的方式。</p>";
+    }
+
+    result.innerHTML = resultHTML;
+  }
+
+  // 啟動第一題
+  updateQuestion();
+</script>
+</body>
+</html>

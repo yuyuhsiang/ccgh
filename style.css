@@ -1,0 +1,129 @@
+body {
+      font-family: "Microsoft JhengHei", sans-serif;
+      background: black;
+      color: white;
+      padding: 20px;
+    }
+    
+    /* 標題樣式 */
+    h1 {
+      text-align: center;
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    /* 問卷賽道區塊 */
+    #track {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      margin: 40px auto;
+      width: 90%;
+      max-width: 800px;
+      border: 2px solid #888;
+      padding: 20px;
+      background: url('Images/background.jpg') no-repeat center/cover;
+      border-radius: 10px;
+    }
+
+    /* 每條通道的設定 */
+    .lane {
+      display: flex;
+      align-items: center;
+      margin: 20px 0;
+      height: 80px;
+    }
+
+    /* 左側標籤 */
+    .label {
+      width: 150px;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    /* 賽道背景 */
+    .space {
+      flex: 1;
+      position: relative;
+      height: 80px;
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    /* 進度條背景 */
+    .progress {
+      position: absolute;
+      top: 30px;
+      left: 0;
+      height: 20px;
+      background-color: rgba(255,255,255,0.2);
+      z-index: 0;
+    }
+
+    /* 飛船圖片位置與動畫 */
+    .ship {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: transform 0.5s ease;
+      height: 80px;
+      z-index: 1;
+    }
+
+    /* 題目區塊樣式 */
+    #questionBox {
+      background: #222;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 30px auto;
+      max-width: 800px;
+      text-align: center;
+    }
+
+    /* 題目文字 */
+    #questionText {
+      font-size: 24px;
+      margin-bottom: 20px;
+      min-height: 80px;
+    }
+
+    /* 選項按鈕通用樣式 */
+    .btn {
+      font-size: 20px;
+      padding: 10px 30px;
+      margin: 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .yes { background-color: #4CAF50; color: white; }
+    .no { background-color: #2196F3; color: white; }
+
+    /* 結果區塊 */
+    #result {
+      margin-top: 40px;
+      font-size: 20px;
+      background: #fff;
+      color: #000;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* 簽名欄樣式 */
+    .signature {
+      margin-top: 50px;
+      border-top: 1px solid #000;
+      width: 300px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-top: 10px;
+      font-size: 18px;
+    }
+
+    /* 回答樣式區分 */
+    .answer-yes { color: #d00; }
+    .answer-no { color: #06c; }
+    .question-line { text-align: left; margin-bottom: 8px; }
